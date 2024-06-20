@@ -1,0 +1,87 @@
+<div class="text-center">
+    <h1>Lista de dispositivos</h1>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <span>
+        <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#staticBackdropp">Nuevo dispositivo</button>
+    </span>
+</div>
+<br>
+<div>
+    <app-devices-list ></app-devices-list>
+</div>
+
+
+<!--Modal-->
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Nueva dispositivo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="deviceForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="p-2 input-with-icon">
+                                <input type="text" placeholder="Id del dispositivo" formControlName="id" />
+                            </div>
+                            <div>
+                                <ng-container *ngIf="deviceForm.get('id')?.invalid && deviceForm.get('id')?.touched">
+                                    <p
+                                      class="caption status-danger"
+                                      *ngIf="deviceForm.get('id')?.errors?.['required']"
+                                    >
+                                      <strong>Campo requerido</strong>
+                                    </p>
+                                  </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-2 input-with-icon">
+                                <input type="text" placeholder="Estado del dispositivo" formControlName="status" />
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="p-2 input-with-icon">
+                                <input type="text" placeholder="Serial del dispositivo" formControlName="deviceName" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-2 input-with-icon">
+                                <input type="text" placeholder="Tipo de dispositivo" formControlName="deviceType" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="date-input-container">
+                            <label class="form-label">Fecha de compra</label>
+                            <input type="date" class="form-control" formControlName="acquisitionDate">
+                        </div>
+                        <div>
+                            <ng-container *ngIf="deviceForm.get('acquisitionDate')?.invalid && deviceForm.get('acquisitionDate')?.touched">
+                                <p
+                                  class="caption status-danger"
+                                  *ngIf="deviceForm.get('acquisitionDate')?.errors?.['required']"
+                                >
+                                  <strong>Campo requerido</strong>
+                                </p>
+                              </ng-container>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="createDevices()" [disabled]="!this.deviceForm.valid">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
